@@ -1,0 +1,33 @@
+.chat-container {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 10px;
+  height: 90vh;
+  padding: 20px;
+  width: 90%;
+}
+
+.left-column {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 10px;
+}
+
+.right-column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: scroll;
+}
+
+app-interlocutor-description,
+app-message-list,
+app-message-input,
+app-user-list {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+app-user-list {
+  flex-grow: 1;
+}

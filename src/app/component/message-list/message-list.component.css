@@ -1,0 +1,24 @@
+.chat-container {
+  border: 1px solid #ddd; /* Bordure autour du conteneur du chat */
+  border-radius: 10px; /* Coins arrondis pour un look moderne */
+  padding: 10px; /* Espacement interne */
+  max-height: 500px; /* Hauteur maximale pour un défilement vertical */
+  overflow-y: auto; /* Ajoute un défilement vertical si nécessaire */
+  background-color: #f9f9f9; /* Couleur de fond claire */
+  display: flex;
+  flex-direction: column; /* Affiche les messages en colonne */
+}
+
+/* Style pour chaque message */
+.message {
+  border-bottom: 1px solid #eee; /* Ligne séparatrice entre les messages */
+  padding: 10px 0; /* Espacement vertical */
+}
+
+/* Style pour le texte du message */
+.message p {
+  margin: 0; /* Enlève les marges par défaut du paragraphe */
+  font-size: 14px; /* Taille du texte */
+  color: #333; /* Couleur du texte */
+  line-height: 1.5; /* Hauteur de ligne pour améliorer la lisibilité */
+}

@@ -1,0 +1,38 @@
+.message-input {
+  display: flex;
+  flex-direction: column;
+  background-color: #e6e6fa; /* Couleur lavande claire */
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  margin-bottom: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+input:focus {
+  outline: none;
+}
+
+button {
+  background-color: #4a4a9d; /* Couleur bleu foncé pour le bouton */
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+button:hover {
+  background-color: #3a3a7d; /* Couleur légèrement plus foncée au survol */
+}
