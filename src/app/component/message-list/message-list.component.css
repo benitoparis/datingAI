@@ -12,7 +12,7 @@
 /* Style pour chaque message */
 .message {
   border-bottom: 1px solid #eee; /* Ligne séparatrice entre les messages */
-  padding: 10px 0; /* Espacement vertical */
+  padding: 10px 20px; /* Espacement vertical */
 }
 
 /* Style pour le texte du message */
@@ -21,4 +21,9 @@
   font-size: 14px; /* Taille du texte */
   color: #333; /* Couleur du texte */
   line-height: 1.5; /* Hauteur de ligne pour améliorer la lisibilité */
+}
+
+.message.loggerUser {
+  background-color: #e6e6fa;
+  text-align: left;
 }

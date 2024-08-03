@@ -22,7 +22,7 @@ export const USERS: User[] = [
       'Amatrice de randonnées et de cuisine exotique. Toujours prête à découvrir de nouvelles cultures.',
     city: 'Paris',
     zipCode: 75001,
-    image: 'https://example.com/images/alice.jpg',
+    image: '',
   },
   {
     id: 'user2',
@@ -33,7 +33,7 @@ export const USERS: User[] = [
       "Passionné de sport et de voyages. À la recherche d'une aventure unique.",
     city: 'Lyon',
     zipCode: 69001,
-    image: 'https://example.com/images/marc.jpg',
+    image: '',
   },
   {
     id: '3',
@@ -44,7 +44,7 @@ export const USERS: User[] = [
       "Adepte de lecture et de soirées cinéma. J'aime discuter de philosophie et d'art.",
     city: 'Marseille',
     zipCode: 13001,
-    image: 'https://example.com/images/claire.jpg',
+    image: '',
   },
   {
     id: 'user4',
@@ -55,7 +55,7 @@ export const USERS: User[] = [
       'Gourmet et amateur de bons vins. Toujours à la recherche de la meilleure table en ville.',
     city: 'Bordeaux',
     zipCode: 33000,
-    image: 'https://example.com/images/paul.jpg',
+    image: '',
   },
   {
     id: '5',
@@ -66,7 +66,7 @@ export const USERS: User[] = [
       "J'aime les animaux et les balades en nature. Espère trouver quelqu'un pour partager de longues promenades.",
     city: 'Lille',
     zipCode: 59000,
-    image: 'https://example.com/images/sophie.jpg',
+    image: '',
   },
   {
     id: 'user6',
@@ -77,7 +77,7 @@ export const USERS: User[] = [
       'Photographe amateur et amoureux des couchers de soleil. À la recherche de la muse parfaite.',
     city: 'Toulouse',
     zipCode: 31000,
-    image: 'https://example.com/images/lucas.jpg',
+    image: '',
   },
   {
     id: 'user7',
@@ -88,7 +88,7 @@ export const USERS: User[] = [
       "Fan de musique live et de concerts. Toujours à l'affût des dernières sorties musicales.",
     city: 'Nice',
     zipCode: 6000,
-    image: 'https://example.com/images/emma.jpg',
+    image: '',
   },
   {
     id: 'user8',
@@ -99,7 +99,7 @@ export const USERS: User[] = [
       "Entrepreneur et passionné de technologie. J'aime discuter d'innovations et de nouvelles idées.",
     city: 'Nantes',
     zipCode: 44000,
-    image: 'https://example.com/images/julien.jpg',
+    image: '',
   },
   {
     id: 'user9',
@@ -110,7 +110,7 @@ export const USERS: User[] = [
       'Amoureuse de la mer et des sports nautiques. Toujours prête à plonger dans une nouvelle aventure.',
     city: 'Montpellier',
     zipCode: 34000,
-    image: 'https://example.com/images/lea.jpg',
+    image: '',
   },
   {
     id: 'user10',
@@ -121,6 +121,6 @@ export const USERS: User[] = [
       'Aficionado de la cuisine italienne et des voyages en Europe. Cherche à partager de nouveaux horizons.',
     city: 'Strasbourg',
     zipCode: 67000,
-    image: 'https://example.com/images/maxime.jpg',
+    image: '',
   },
 ];

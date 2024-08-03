@@ -19,6 +19,7 @@ import { Conversation } from '../../models/conversation.model';
 import { ConversationService } from '../../services/conversation.service';
 import { FAKE_MESSAGES, Message } from '../../models/messages-list.models';
 import { User, USERS } from '../../models/user.model';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-conversation',
@@ -34,29 +35,32 @@ import { User, USERS } from '../../models/user.model';
     NgFor,
   ],
   template: `
-    <div class="chat-container">
-      <div class="left-column">
-        <app-user-card [user]="currentInterlocutor"></app-user-card>
+    <ng-container *ngIf="loggedUser">
+      <div class="chat-container">
+        <div class="left-column">
+          <app-user-card [user]="currentInterlocutor"></app-user-card>
 
-        <ng-container
-          *ngIf="currentConversation$ | async as currentConversation"
-        >
-          <app-message-list
-            [messages]="currentConversation.messages"
-          ></app-message-list>
-        </ng-container>
+          <ng-container
+            *ngIf="currentConversation$ | async as currentConversation"
+          >
+            <app-message-list
+              [messages]="currentConversation.messages"
+              [loggedUser]="loggedUser"
+            ></app-message-list>
+          </ng-container>
 
-        <app-message-input
-          (sendMessage)="onSendMessage($event)"
-        ></app-message-input>
+          <app-message-input
+            (sendMessage)="onSendMessage($event)"
+          ></app-message-input>
+        </div>
+        <div class="right-column">
+          <app-user-list
+            [users]="users"
+            (selectUser)="onSelectUser($event)"
+          ></app-user-list>
+        </div>
       </div>
-      <div class="right-column">
-        <app-user-list
-          [users]="users"
-          (selectUser)="onSelectUser($event)"
-        ></app-user-list>
-      </div>
-    </div>
+    </ng-container>
   `,
   styleUrls: ['./conversation.css'],
   host: { hostID: crypto.randomUUID().toString() },
@@ -71,6 +75,8 @@ export default class ConversationPageComponent implements OnInit {
   currentInterlocutor: User | null = null;
   currentConversation$ = new BehaviorSubject<Conversation | null>(null);
 
+  loggedUser: User | null = null;
+
   readonly conversationId$ = this.route.paramMap.pipe(
     map((params) => {
       console.log('params', params);
@@ -81,10 +87,13 @@ export default class ConversationPageComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private conversationService: ConversationService
+    private conversationService: ConversationService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
+    this.getLoggedUser();
+
     this.conversationId$.subscribe((conversationId) => {
       if (!conversationId) return;
 
@@ -136,6 +145,13 @@ export default class ConversationPageComponent implements OnInit {
       console.log('foundInterlocutor', foundInterlocutor);
 
       if (foundInterlocutor) this.currentInterlocutor = foundInterlocutor;
+    });
+  }
+
+  getLoggedUser() {
+    this.authService.getAuthUser().subscribe((authUser) => {
+      console.log('authUser', authUser);
+      this.loggedUser = authUser;
     });
   }
 }
