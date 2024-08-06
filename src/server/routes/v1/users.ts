@@ -1,3 +1,7 @@
+import { defineEventHandler } from 'h3';
+
+export default defineEventHandler(() => ({ message: USERS }));
+
 export interface User {
   id: string;
   surname: string;

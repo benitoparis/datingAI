@@ -1,0 +1,105 @@
+import { defineEventHandler } from 'h3';
+
+export default defineEventHandler(() => ({ message: FAKE_CONVERSATIONS }));
+
+export interface Message {
+  id: string;
+  conversationId: string;
+  senderId: string;
+  content: string;
+  timestamp: Date;
+}
+
+export const FAKE_MESSAGES: Message[] = [
+  {
+    id: '1',
+    conversationId: '1',
+    senderId: 'user1',
+    content: 'Hi there!',
+    timestamp: new Date('2023-01-01T10:00:00'),
+  },
+  {
+    id: '2',
+    conversationId: '1',
+    senderId: 'user2',
+    content: 'Hello! How are you?',
+    timestamp: new Date('2023-01-01T10:01:00'),
+  },
+  {
+    id: '3',
+    conversationId: '1',
+    senderId: 'user1',
+    content: 'I am good, thanks! How about you?',
+    timestamp: new Date('2023-01-01T10:02:00'),
+  },
+  {
+    id: '4',
+    conversationId: '2',
+    senderId: 'user1',
+    content: "Hey, what's up?",
+    timestamp: new Date('2023-02-01T11:00:00'),
+  },
+  {
+    id: '5',
+    conversationId: '2',
+    senderId: 'user3',
+    content: 'Not much, just chilling. You?',
+    timestamp: new Date('2023-02-01T11:01:00'),
+  },
+  {
+    id: '6',
+    conversationId: '3',
+    senderId: 'user1',
+    content: 'Hello!',
+    timestamp: new Date('2023-03-01T12:00:00'),
+  },
+  {
+    id: '7',
+    conversationId: '3',
+    senderId: 'user4',
+    content: 'Hi! How have you been?',
+    timestamp: new Date('2023-03-01T12:01:00'),
+  },
+  {
+    id: '8',
+    conversationId: '3',
+    senderId: 'user1',
+    content: "I've been great, thanks for asking.",
+    timestamp: new Date('2023-03-01T12:02:00'),
+  },
+  {
+    id: '9',
+    conversationId: '3',
+    senderId: 'user4',
+    content: 'Good to hear!',
+    timestamp: new Date('2023-03-01T12:03:00'),
+  },
+];
+
+export interface Conversation {
+  id: string;
+  user1: string; //User;
+  user2: string; //sUser;
+  messages: Message[];
+}
+
+export const FAKE_CONVERSATIONS: Conversation[] = [
+  {
+    id: '1',
+    user1: 'user1',
+    user2: 'user2',
+    messages: FAKE_MESSAGES.filter((message) => message.conversationId === '1'),
+  },
+  {
+    id: '2',
+    user1: 'user1',
+    user2: 'user3',
+    messages: FAKE_MESSAGES.filter((message) => message.conversationId === '2'),
+  },
+  {
+    id: '3',
+    user1: 'user1',
+    user2: 'user4',
+    messages: FAKE_MESSAGES.filter((message) => message.conversationId === '3'),
+  },
+];

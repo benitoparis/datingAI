@@ -20,6 +20,7 @@ import { ConversationService } from '../../services/conversation.service';
 import { FAKE_MESSAGES, Message } from '../../models/messages-list.models';
 import { User, USERS } from '../../models/user.model';
 import { AuthService } from '../../services/auth.service';
+import { LLMEndpointService } from '../../services/llm-endpoint.service';
 
 @Component({
   selector: 'app-conversation',
@@ -88,7 +89,8 @@ export default class ConversationPageComponent implements OnInit {
   constructor(
     private userService: UserService,
     private conversationService: ConversationService,
-    private authService: AuthService
+    private authService: AuthService,
+    private llmEndpointService: LLMEndpointService
   ) {}
 
   ngOnInit() {
@@ -107,7 +109,13 @@ export default class ConversationPageComponent implements OnInit {
     this.getCurrentInterlocutor();
   }
 
-  onSendMessage(event: string) {}
+  onSendMessage(msg: string) {
+    console.log('msg', msg);
+
+    this.llmEndpointService.postData({ msg }).subscribe((response) => {
+      console.log('la reponse du endpoint:', response);
+    });
+  }
 
   onSelectUser(event: Event) {}
 

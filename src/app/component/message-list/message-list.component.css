@@ -13,6 +13,7 @@
 .message {
   border-bottom: 1px solid #eee; /* Ligne séparatrice entre les messages */
   padding: 10px 20px; /* Espacement vertical */
+  text-align: right;
 }
 
 /* Style pour le texte du message */
