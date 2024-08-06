@@ -19,7 +19,7 @@ export class AuthService {
         'Amatrice de randonnées et de cuisine exotique. Toujours prête à découvrir de nouvelles cultures.',
       city: 'Paris',
       zipCode: 75001,
-      image: 'https://example.com/images/alice.jpg',
+      image: '',
     };
     this.authUser$.next(fakeUser);
   }
