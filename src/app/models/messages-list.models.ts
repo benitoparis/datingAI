@@ -1,9 +1,9 @@
 export interface Message {
   id: string;
   conversationId: string;
-  senderId: string;
+  senderId: string; // UID de l'utilisateur authentifié ou ID du profil virtuel
   content: string;
-  timestamp: Date;
+  timestamp: number;
 }
 
 export const FAKE_MESSAGES: Message[] = [

@@ -1,11 +1,10 @@
 import { FAKE_MESSAGES, Message } from './messages-list.models';
-import { User } from './user.model';
 
 export interface Conversation {
   id: string;
-  user1: string; //User;
-  user2: string; //sUser;
-  messages: Message[];
+  userId: string; // UID de l'utilisateur authentifié;
+  virtualProfileId: string; // ID du profil virtuel
+  messages?: Message[];
 }
 
 export const FAKE_CONVERSATIONS: Conversation[] = [

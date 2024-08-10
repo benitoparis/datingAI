@@ -1,0 +1,25 @@
+.container {
+  margin-top: 50px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.col-6 {
+  flex-basis: 48%;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.btn-primary {
+  margin-top: 20px;
+  width: 100%;
+}

@@ -1,0 +1,31 @@
+/* Container principal du header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #3a3a7d; /* Dark Slate Blue */
+  color: #ffffff;
+}
+
+/* Titre du site */
+.header-title h1 {
+  margin: 0;
+  font-size: 1.5em;
+}
+
+/* Liens du header */
+.header-links {
+  display: flex;
+  gap: 20px;
+}
+
+.header-links a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 1em;
+}
+
+.header-links a:hover {
+  text-decoration: underline;
+}

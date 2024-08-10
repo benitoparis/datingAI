@@ -5,37 +5,25 @@ import { Component, signal } from '@angular/core';
   standalone: true,
   template: `
     <div>
-      <a href="https://analogjs.org/" target="_blank">
-        <img alt="Analog Logo" class="logo analog" src="/analog.svg" />
-      </a>
+      <h1>Fini la solitude le soir et le weekend</h1>
+      <h2>
+        Rencontre une femme virtuelle et débute une relation dès maintenant
+      </h2>
+      <p>
+        Le Lorem Ipsum est simplement du faux texte employé dans la composition
+        et la mise en page avant impression. Le Lorem Ipsum est le faux texte
+        standard de l'imprimerie depuis les années 1500, quand un imprimeur
+        anonyme assembla ensemble des morceaux de texte pour réaliser un livre
+        spécimen de polices de texte. Il n'a pas fait que survivre cinq siècles,
+        mais s'est aussi adapté à la bureautique informatique, sans que son
+        contenu n'en soit modifié. Il a été popularisé dans les années 1960
+        grâce à la vente de feuilles Letraset contenant des passages du Lorem
+        Ipsum, et, plus récemment, par son inclusion dans des applications de
+        mise en page de texte, comme Aldus PageMaker.
+      </p>
     </div>
-
-    <h2>Analog</h2>
-
-    <h3>The fullstack meta-framework for Angular!</h3>
-
-    <div class="card">
-      <button type="button" (click)="increment()">Count {{ count() }}</button>
-    </div>
-
-    <p class="read-the-docs">
-      For guides on how to customize this project, visit the
-      <a href="https://analogjs.org" target="_blank">Analog documentation</a>
-    </p>
   `,
-  styles: [
-    `
-      .logo {
-        will-change: filter;
-      }
-      .logo:hover {
-        filter: drop-shadow(0 0 2em #646cffaa);
-      }
-      .read-the-docs {
-        color: #888;
-      }
-    `,
-  ],
+  styles: [``],
 })
 export default class HomeComponent {
   count = signal(0);
