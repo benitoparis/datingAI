@@ -10,20 +10,20 @@ export interface Conversation {
 export const FAKE_CONVERSATIONS: Conversation[] = [
   {
     id: '1',
-    user1: 'user1',
-    user2: 'user2',
+    userId: 'user1',
+    virtualProfileId: 'virtualProfile1',
     messages: FAKE_MESSAGES.filter((message) => message.conversationId === '1'),
   },
   {
     id: '2',
-    user1: 'user1',
-    user2: 'user3',
+    userId: 'user1',
+    virtualProfileId: 'virtualProfile2',
     messages: FAKE_MESSAGES.filter((message) => message.conversationId === '2'),
   },
   {
     id: '3',
-    user1: 'user1',
-    user2: 'user4',
+    userId: 'user1',
+    virtualProfileId: 'virtualProfile4',
     messages: FAKE_MESSAGES.filter((message) => message.conversationId === '3'),
   },
 ];

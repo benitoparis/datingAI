@@ -12,7 +12,8 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 
 // Your web app's Firebase configuration
-const firebaseConfig = {};
+
+console.log('firebaseConfig', firebaseConfig);
 
 export const appConfig: ApplicationConfig = {
   providers: [

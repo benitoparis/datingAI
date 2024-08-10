@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -57,11 +57,9 @@ import { Router } from '@angular/router';
 export default class SignInPageComponent {
   signInForm: FormGroup;
 
-  constructor(
-    private fb: FormBuilder,
-    private authService: AuthService,
-    private router: Router
-  ) {
+  router = inject(Router);
+
+  constructor(private fb: FormBuilder, private authService: AuthService) {
     this.signInForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -71,7 +69,7 @@ export default class SignInPageComponent {
   onSubmit() {
     if (this.signInForm.valid) {
       // Gestion de la connexion, par exemple en appelant un service d'authentification
-      console.log(this.signInForm.value);
+      console.log('this.signInForm.value', this.signInForm.value);
 
       const { email, password } = this.signInForm.value;
 
@@ -84,7 +82,7 @@ export default class SignInPageComponent {
           })
         )
         .subscribe((data: any) => {
-          console.log('login', data);
+          console.log('SignInPageComponent login', data);
 
           this.router.navigateByUrl('/conversations/1');
         });

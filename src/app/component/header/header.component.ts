@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
       </div>
       <nav class="header-links">
         <a href="/how-it-works">Comment ça fonctionne?</a>
-        <a href="/sign-up" *ngIf="!user">S'inscrire</a>
+        <a href="/register" *ngIf="!user">S'inscrire</a>
         <a href="/sign-in" *ngIf="!user">Se connecter</a>
         <a href="#" *ngIf="user" (click)="logoutEmitter.emit()"
           >Se déconnecter</a
