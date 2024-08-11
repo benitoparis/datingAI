@@ -3,6 +3,7 @@ import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import {
   BehaviorSubject,
+  delay,
   filter,
   map,
   Observable,
@@ -117,7 +118,11 @@ export default class ConversationPageComponent implements OnInit {
       .subscribe((messagesByConversationId) => {
         console.log('messagesByConversationId', messagesByConversationId);
 
-        this.messages$.next(messagesByConversationId);
+        this.messages$.next(
+          messagesByConversationId.sort(
+            (msg1, msg2) => msg1.timestamp - msg2.timestamp
+          )
+        );
       });
 
     this.getUserConversations();
@@ -138,10 +143,7 @@ export default class ConversationPageComponent implements OnInit {
   onSendMessage(msg: string) {
     console.log('msg', msg);
 
-    // this.llmEndpointService.postData({ msg }).subscribe((response) => {
-    //   console.log('la reponse du endpoint:', response);
-    // });
-
+    // Save in DB
     this.conversationId$
       .pipe(
         filter(Boolean),
@@ -157,6 +159,22 @@ export default class ConversationPageComponent implements OnInit {
       .subscribe((data) => {
         console.log('msg created');
       });
+
+    this.llmEndpointService
+      .postData({ msg })
+      .pipe(
+        delay(2000), // simulate 1 second before displaying the response
+        withLatestFrom(this.conversationId$),
+        tap(([msg, conversationId]) => {
+          if (conversationId)
+            this.messageService.sendMessage(
+              conversationId,
+              this.loggedUser.uid,
+              msg.message
+            );
+        })
+      )
+      .subscribe((result) => {});
   }
 
   onSelectUser(event: Event) {}
