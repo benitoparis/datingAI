@@ -1,5 +1,5 @@
 export interface User {
-  id: string;
+  uid: string;
   surname: string;
   gender: Gender;
   status: ConnectionStatus;

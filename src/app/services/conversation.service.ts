@@ -2,7 +2,12 @@ import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, filter, Observable } from 'rxjs';
 import { Conversation, FAKE_CONVERSATIONS } from '../models/conversation.model';
 import { User } from '../models/user.model';
-import { collectionData, Firestore } from '@angular/fire/firestore';
+import {
+  collectionData,
+  Firestore,
+  query,
+  where,
+} from '@angular/fire/firestore';
 import { collection, addDoc } from 'firebase/firestore';
 
 @Injectable({
@@ -11,10 +16,6 @@ import { collection, addDoc } from 'firebase/firestore';
 export class ConversationService {
   private selectedUserSubject = new BehaviorSubject<User | null>(null);
   selectedUser$ = this.selectedUserSubject.asObservable();
-
-  //conversations$ = new BehaviorSubject<Conversation[] | []>(FAKE_CONVERSATIONS);
-
-  //firestore = inject(AngularFirestore);
 
   private firestore = inject(Firestore);
   private collection = collection(this.firestore, 'conversations');
@@ -80,17 +81,28 @@ export class ConversationService {
   //     .set(conversation);
   // }
 
-  getConversationsForUser(userId: string) {
-    // return this.firestore
-    //   .collection<Conversation>('conversations', (ref) =>
-    //     ref.where('userId', '==', userId)
-    //   )
-    //   .valueChanges();
+  // getConversationsForUser(userId: string) {
+  //   // return this.firestore
+  //   //   .collection<Conversation>('conversations', (ref) =>
+  //   //     ref.where('userId', '==', userId)
+  //   //   )
+  //   //   .valueChanges();
 
+  //   // get a reference to the user-profile collection
+  //   const conversationsCollection = collection(this.firestore, 'conversations');
+
+  //   // get documents (data) from the collection using collectionData
+  //   return conversationsCollection;
+  // }
+
+  getUserConversations(userId: string) {
     // get a reference to the user-profile collection
     const conversationsCollection = collection(this.firestore, 'conversations');
 
-    // get documents (data) from the collection using collectionData
-    return conversationsCollection;
+    const q = query(conversationsCollection, where('userId', '==', userId));
+
+    return collectionData(q, {
+      idField: 'id',
+    }) as Observable<Conversation[]>;
   }
 }

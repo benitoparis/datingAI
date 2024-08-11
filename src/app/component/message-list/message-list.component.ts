@@ -11,7 +11,7 @@ import { User } from 'src/app/models/user.model';
       <div
         class="message"
         *ngFor="let message of messages"
-        [ngClass]="{ loggerUser: message.senderId === loggedUser.id }"
+        [ngClass]="{ loggerUser: message.senderId === loggedUser.uid }"
       >
         <p>{{ message.content }}</p>
         <small>{{ message.timestamp | date : 'short' }}</small>

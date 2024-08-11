@@ -3,10 +3,12 @@ import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import {
   BehaviorSubject,
+  combineLatest,
   delay,
   filter,
   map,
   Observable,
+  of,
   switchMap,
   tap,
   withLatestFrom,
@@ -25,6 +27,8 @@ import { AuthService } from '../../services/auth.service';
 import { LLMEndpointService } from '../../services/llm-endpoint.service';
 import { FirestoreModule } from '@angular/fire/firestore';
 import { MessageService } from '../../services/message.service';
+import { VirtualProfile } from '../../models/virtualProfile.model';
+import { VirtualProfileService } from '../../services/virtual-profiles.service';
 
 @Component({
   selector: 'app-conversation',
@@ -44,7 +48,9 @@ import { MessageService } from '../../services/message.service';
     <ng-container *ngIf="loggedUser">
       <div class="chat-container">
         <div class="left-column">
-          <app-user-card [user]="currentInterlocutor"></app-user-card>
+          <ng-container *ngIf="virtualProfile">
+            <app-user-card [virtualProfile]="virtualProfile"></app-user-card>
+          </ng-container>
 
           <ng-container *ngIf="messages$ | async as messages">
             <app-message-list
@@ -58,10 +64,10 @@ import { MessageService } from '../../services/message.service';
           ></app-message-input>
         </div>
         <div class="right-column">
-          <app-user-list
+          <!-- <app-user-list
             [users]="users"
             (selectUser)="onSelectUser($event)"
-          ></app-user-list>
+          ></app-user-list> -->
         </div>
       </div>
     </ng-container>
@@ -80,6 +86,9 @@ export default class ConversationPageComponent implements OnInit {
   currentConversation$ = new BehaviorSubject<Conversation | null>(null);
 
   loggedUser: User | null | any = null;
+  virtualProfile: VirtualProfile;
+
+  userConversations$ = new BehaviorSubject<Conversation[] | null>(null);
 
   readonly conversationId$ = this.route.paramMap.pipe(
     map((params) => {
@@ -94,7 +103,8 @@ export default class ConversationPageComponent implements OnInit {
     private conversationService: ConversationService,
     private authService: AuthService,
     private llmEndpointService: LLMEndpointService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private virtualProfilsService: VirtualProfileService
   ) {}
 
   ngOnInit() {
@@ -126,6 +136,8 @@ export default class ConversationPageComponent implements OnInit {
       });
 
     this.getUserConversations();
+    this.getCurrentConversation();
+    this.getCurrentVirtualProfile();
 
     // this.conversationId$.subscribe((conversationId) => {
     //   if (!conversationId) return;
@@ -169,7 +181,7 @@ export default class ConversationPageComponent implements OnInit {
           if (conversationId)
             this.messageService.sendMessage(
               conversationId,
-              this.loggedUser.uid,
+              this.virtualProfile.id,
               msg.message
             );
         })
@@ -227,20 +239,87 @@ export default class ConversationPageComponent implements OnInit {
     });
   }
 
+  //getUserConversations() {
+  // this.conversationId$.subscribe((conversationId) => {
+  //   this.conversationService.getConversationsForUser(this.loggedUser.uid);
+  //   const q = query(
+  //     this.collection,
+  //     where('conversationId', '==', conversationId)
+  //   );
+  //   return collectionData(q, {
+  //     idField: 'id',
+  //   }) as Observable<Message[]>;
+  // });
+  // this.authService.user$
+  //   .pipe(
+  //     map((user) => user.id),
+  //     switchMap((userId) => {
+  //       return this.conversationService.getConversationsForUser(userId);
+  //     })
+  //   )
+  //   .subscribe((conversations) => {
+  //     console.log('getUserConversations', conversations);
+  //   });
+  //}
+
   getUserConversations() {
-    const convers = this.conversationService.getConversationsForUser(
-      'LaHj0Z1FVyULCuUu53tyZFpgFKH3'
-    );
-    console.log('convers', convers);
-    // this.authService.user$
-    //   .pipe(
-    //     map((user) => user.id),
-    //     switchMap((userId) => {
-    //       return this.conversationService.getConversationsForUser(userId);
-    //     })
-    //   )
-    //   .subscribe((conversations) => {
-    //     console.log('getUserConversations', conversations);
-    //   });
+    this.authService.user$
+      .pipe(
+        switchMap((user) => {
+          if (user) {
+            return this.conversationService.getUserConversations(user.uid);
+          } else {
+            return of([]);
+          }
+        })
+      )
+      .subscribe((userConversations) => {
+        //get current user conversations
+        this.userConversations$.next(userConversations);
+      });
+  }
+
+  getCurrentConversation() {
+    combineLatest([this.userConversations$, this.conversationId$])
+      .pipe(
+        map(([userConversations, conversationId]) => {
+          return userConversations?.filter(
+            (conversation) => conversation.id === conversationId
+          );
+        })
+      )
+      .subscribe((currentConversation) => {
+        if (currentConversation)
+          this.currentConversation$.next(currentConversation[0]);
+      });
+  }
+
+  getCurrentVirtualProfile() {
+    this.currentConversation$
+      .pipe(
+        filter(Boolean),
+        switchMap((currentConversation) => {
+          console.log('la currentConversation', currentConversation);
+          if (currentConversation) {
+            return this.virtualProfilsService.getVirtualProfils().pipe(
+              map((virtualProfils) => {
+                return virtualProfils.filter(
+                  (virtualProfil) =>
+                    virtualProfil.id === currentConversation.virtualProfileId
+                );
+              })
+            );
+          } else {
+            return of([]);
+          }
+        })
+      )
+      .subscribe((virtualProfiles) => {
+        console.log('virtualProfiles', virtualProfiles);
+
+        if (virtualProfiles) {
+          this.virtualProfile = virtualProfiles[0];
+        }
+      });
   }
 }
