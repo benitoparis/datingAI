@@ -112,11 +112,8 @@ export default class RegisterPageComponent {
   onSubmit() {
     if (this.registerForm.valid) {
       // Ici, vous pouvez gérer l'envoi du formulaire, par exemple en appelant un service
-      console.log(this.registerForm.value);
 
       const { email, username, gender, password } = this.registerForm.value;
-
-      console.log('this.authService', this.authService);
 
       this.authService
         .register(email, username, password)

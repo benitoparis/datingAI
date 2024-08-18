@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
   template: `
     <header class="header">
       <div class="header-title">
-        <h1>MonSite</h1>
+        <h1>Date With Ai</h1>
       </div>
       <nav class="header-links">
         <a href="/how-it-works">Comment ça fonctionne?</a>

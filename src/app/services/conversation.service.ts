@@ -81,20 +81,6 @@ export class ConversationService {
   //     .set(conversation);
   // }
 
-  // getConversationsForUser(userId: string) {
-  //   // return this.firestore
-  //   //   .collection<Conversation>('conversations', (ref) =>
-  //   //     ref.where('userId', '==', userId)
-  //   //   )
-  //   //   .valueChanges();
-
-  //   // get a reference to the user-profile collection
-  //   const conversationsCollection = collection(this.firestore, 'conversations');
-
-  //   // get documents (data) from the collection using collectionData
-  //   return conversationsCollection;
-  // }
-
   getUserConversations(userId: string) {
     // get a reference to the user-profile collection
     const conversationsCollection = collection(this.firestore, 'conversations');

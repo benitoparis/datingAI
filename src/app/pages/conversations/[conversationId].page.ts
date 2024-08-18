@@ -47,7 +47,7 @@ import { VirtualProfileService } from '../../services/virtual-profiles.service';
   template: `
     <ng-container *ngIf="loggedUser">
       <div class="chat-container">
-        <div class="left-column">
+        <div class="chat">
           <ng-container *ngIf="virtualProfile">
             <app-user-card [virtualProfile]="virtualProfile"></app-user-card>
           </ng-container>
@@ -62,12 +62,6 @@ import { VirtualProfileService } from '../../services/virtual-profiles.service';
           <app-message-input
             (sendMessage)="onSendMessage($event)"
           ></app-message-input>
-        </div>
-        <div class="right-column">
-          <!-- <app-user-list
-            [users]="users"
-            (selectUser)="onSelectUser($event)"
-          ></app-user-list> -->
         </div>
       </div>
     </ng-container>
@@ -111,7 +105,7 @@ export default class ConversationPageComponent implements OnInit {
     this.getLoggedUser();
 
     this.conversationService.conversations$.subscribe((conv) =>
-      console.log('conv', conv)
+      console.log('conv')
     );
 
     // this.messageService.messages$.subscribe((message) =>
@@ -126,8 +120,6 @@ export default class ConversationPageComponent implements OnInit {
         })
       )
       .subscribe((messagesByConversationId) => {
-        console.log('messagesByConversationId', messagesByConversationId);
-
         this.messages$.next(
           messagesByConversationId.sort(
             (msg1, msg2) => msg1.timestamp - msg2.timestamp
@@ -153,8 +145,6 @@ export default class ConversationPageComponent implements OnInit {
   }
 
   onSendMessage(msg: string) {
-    console.log('msg', msg);
-
     // Save in DB
     this.conversationId$
       .pipe(
@@ -173,7 +163,7 @@ export default class ConversationPageComponent implements OnInit {
       });
 
     this.llmEndpointService
-      .postData({ msg })
+      .postData({ msg, virtualProfile: this.virtualProfile })
       .pipe(
         delay(2000), // simulate 1 second before displaying the response
         withLatestFrom(this.conversationId$),
@@ -299,7 +289,6 @@ export default class ConversationPageComponent implements OnInit {
       .pipe(
         filter(Boolean),
         switchMap((currentConversation) => {
-          console.log('la currentConversation', currentConversation);
           if (currentConversation) {
             return this.virtualProfilsService.getVirtualProfils().pipe(
               map((virtualProfils) => {

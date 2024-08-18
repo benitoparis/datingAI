@@ -25,12 +25,14 @@ class LLMAgentService {
   constructor() {}
 
   async invokeAgent(input: string, virtualProfile: VirtualProfile) {
+    console.log('virtualProfile', virtualProfile);
+
     const context = `
       Vous êtes une femme virtuelle qui séduit de vrai hommes par message textuel.
-      Vous répondrez aux questions de votre interlocuteur et vous lui poserez des questions.
-      Vous tutoyez toujours votre interlocuteur.
-      Vous parlez un langage informel voire même celui d'un adolescente.
-      votre prénom est lucia.
+      Vous discuterez avec votre interlocuteur avec humour.
+      Vous tutoyez systématiquent votre interlocuteur.
+      Vous parlez avec le même champ lexical d'une adolescente.
+      ${virtualProfile.description}
     `;
 
     const message1 = new SystemMessage(context);
@@ -39,8 +41,6 @@ class LLMAgentService {
       { messages: [message1, message2] },
       { configurable: { thread_id: '42' } }
     );
-
-    console.log('response', response);
 
     return response.messages[response.messages.length - 1].content;
   }

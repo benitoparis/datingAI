@@ -23,15 +23,7 @@ const agentFinalState = await agent.invoke(
   { configurable: { thread_id: '42' } }
 );
 
-console.log(
-  agentFinalState.messages[agentFinalState.messages.length - 1].content
-);
-
 const agentNextState = await agent.invoke(
   { messages: [new HumanMessage('what about ny')] },
   { configurable: { thread_id: '42' } }
-);
-
-console.log(
-  agentNextState.messages[agentNextState.messages.length - 1].content
 );

@@ -51,8 +51,6 @@ export class AuthService {
       email,
       password
     ).then((response) => {
-      console.log('response', response);
-
       updateProfile(response.user, { displayName: username });
     });
 

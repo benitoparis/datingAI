@@ -28,7 +28,6 @@ export class MessageListComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    console.log('messages', this.messages);
-    console.log('loggedUser', this.loggedUser);
+    console.log('loggedUser');
   }
 }

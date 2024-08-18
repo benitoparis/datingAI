@@ -14,7 +14,7 @@ import { VirtualProfile } from 'src/app/models/virtualProfile.model';
         <h4>{{ virtualProfile?.nickName }}</h4>
         <p>{{ virtualProfile?.description }}</p>
       </div>
-      <img src="/src/app/images/photo1.png" with="200" height="200" />
+      <img src="/src/app/images/photo1.png" with="150" height="150" />
     </div>
   `,
   styleUrls: ['./user-card.component.css'],
